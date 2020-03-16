@@ -14,10 +14,13 @@ class ServerSpec extends Specification {
 
 	void "Submit Job"() {
 		when:
+		def start = System.currentTimeMillis()
 		def response = restTemplate.getForEntity("/test", null, String)
+		def elapsed = System.currentTimeMillis() - start
 
 		then:
 		response.status == HttpStatus.OK.value()
+		elapsed > 10_000
 	}
 	
 }
