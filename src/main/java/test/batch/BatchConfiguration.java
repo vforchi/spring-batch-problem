@@ -4,6 +4,7 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.*;
 import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.core.step.tasklet.SystemCommandTasklet;
 import org.springframework.batch.core.step.tasklet.Tasklet;
@@ -36,7 +37,7 @@ public class BatchConfiguration extends DefaultBatchConfigurer {
     @Bean
     public Job myJob(Step myStep) {
         return jobBuilderFactory.get("myJob")
-//                .incrementer(new RunIdIncrementer())
+                .incrementer(new RunIdIncrementer())
                 .start(myStep)
                 .build();
     }
@@ -52,7 +53,7 @@ public class BatchConfiguration extends DefaultBatchConfigurer {
     @Bean
     @StepScope
     public Tasklet myServiceTasklet(
-             @Value("#{jobParameters['param']}") String param
+             @Value("#{jobParameters['my_param']}") String param
     ) {
         SystemCommandTasklet tasklet = new SystemCommandTasklet();
         System.out.println(param);
