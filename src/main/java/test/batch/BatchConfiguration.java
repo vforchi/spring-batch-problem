@@ -52,7 +52,7 @@ public class BatchConfiguration extends DefaultBatchConfigurer {
 
     @Bean
     @StepScope
-    public Tasklet myServiceTasklet(
+    public SystemCommandTasklet myServiceTasklet(
              @Value("#{jobParameters['my_param']}") String param
     ) {
         SystemCommandTasklet tasklet = new SystemCommandTasklet();
